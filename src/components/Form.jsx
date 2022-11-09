@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from 'uuid';
 // from component folder
 
 
+const ghToken = process.env.GH_TOKEN;
+
 export default function Form() {
     // STATES
     const [keyword, setKeyword] = useState('');
@@ -18,54 +20,48 @@ export default function Form() {
         input1Ref.current.value = '';
     }
 
-    // FN: Helper: RETURN DIFFERENCE BETWEEN 2 Sets
-    const difference = (oldSet, newSet) => {
-        if (oldSet.size === 0) {
-            const diffSet = new Set(newSet);
-            for (const elem of oldSet) {
+    /*     // FN: Helper: RETURN DIFFERENCE BETWEEN 2 Sets
+        const difference = (oldSet, newSet) => {
+            if (oldSet.size === 0) {
+                const diffSet = new Set(newSet);
+                for (const elem of oldSet) {
+                    diffSet.delete(elem);
+                }
+                return diffSet
+            }
+            const diffSet = new Set(oldSet);
+            for (const elem of newSet) {
                 diffSet.delete(elem);
             }
             return diffSet
         }
-        const diffSet = new Set(oldSet);
-        for (const elem of newSet) {
-            diffSet.delete(elem);
-        }
-        return diffSet
-    }
-
-    // FN: Helper: RETURN DIFFERENCE BETWEEN 2 Arrays
-    const findDiff = (oldArray, newArray) => {
-        const oldArraySet = new Set(oldArray,);
-        const newArraySet = new Set(newArray);
-        console.log('oldArraySet =', oldArraySet);
-        console.log('newArraySet =', newArraySet);
-        const diff = difference(oldArraySet, newArraySet);
-        console.log('diff =', diff);
-
-        if (diff.size > 0) {
-            const diffOut = Array.from(diff);
-            return diffOut;
-        }
-        else {
-            return [];
-        }
-    }
+    
+        // FN: Helper: RETURN DIFFERENCE BETWEEN 2 Arrays
+        const findDiff = (oldArray, newArray) => {
+            const oldArraySet = new Set(oldArray,);
+            const newArraySet = new Set(newArray);
+            const diff = difference(oldArraySet, newArraySet);
+    
+            if (diff.size > 0) {
+                const diffOut = Array.from(diff);
+                return diffOut;
+            }
+            else {
+                return [];
+            }
+        } */
 
     // FN: RUN SEARCH for Each letter input:
     const possibleWords = (keyword) => {
-        axios.get(`https://api.github.com/search/topics?q=${keyword}&per_page=5`)
+        axios.get(`https://api.github.com/search/topics?q=${keyword}&per_page=5`, {
+            headers: {
+                'Accept': 'application/vnd.github+json',
+                'Authorization': ghToken
+            }
+        })
             .then((results) => {
                 const tempTitles = [];
                 const items = results.data.items;
-                console.log(results.data.items);
-                // Pulling out possible words from titles of topics into an array:
-                /* items.forEach((x) => {
-                    if ((x.name.includes(keyword)) && (x.name in possiblesClone !== true)) {
-                        possiblesClone.push(x.name);
-                        setPossibles(possiblesClone);
-                    }
-                }); */
                 const blankArray = [];
                 setPossibles(blankArray);
                 items.forEach((x) => {
