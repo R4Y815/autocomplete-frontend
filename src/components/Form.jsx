@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 // from component folder
 import { Octokit } from "@octokit/core";
 
-
 // GLOBAL Auth from Octokit for GitHub API
 const ghToken = process.env.REACT_APP_GH_TOKEN;
 
@@ -21,7 +20,7 @@ export default function Form() {
         input1Ref.current.value = '';
     }
 
-    // FN: Check Rate Limit
+    // FN: Check Rate Limit 
     /* const checkRate = () => {
         const octokit = new Octokit({
             auth: ghToken
@@ -57,10 +56,10 @@ export default function Form() {
 
     // FN: Controlled Form Inputs
     const handleInputChange = (event) => {
-        const input = event.target.value;
-        console.log('input = ', input);
-        if (input.length > 1) {
-            possibleWords(input);
+        setKeyword(event.target.value);
+        console.log('input = ', keyword);
+        if (keyword.length > 1) {
+            possibleWords(keyword);
         }
     }
 
