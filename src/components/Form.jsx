@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 // from component folder
 
@@ -7,6 +8,7 @@ import axios from 'axios';
 export default function Form() {
     // STATES
     const [keyword, setKeyword] = useState('');
+    const [possibles, setPossibles] = useState([]);
 
     // REFS
     const input1Ref = useRef();
@@ -16,45 +18,78 @@ export default function Form() {
         input1Ref.current.value = '';
     }
 
+    // FN: Helper: RETURN DIFFERENCE BETWEEN 2 Sets
+    const difference = (oldSet, newSet) => {
+        if (oldSet.size === 0) {
+            const diffSet = new Set(newSet);
+            for (const elem of oldSet) {
+                diffSet.delete(elem);
+            }
+            return diffSet
+        }
+        const diffSet = new Set(oldSet);
+        for (const elem of newSet) {
+            diffSet.delete(elem);
+        }
+        return diffSet
+    }
+
+    // FN: Helper: RETURN DIFFERENCE BETWEEN 2 Arrays
+    const findDiff = (oldArray, newArray) => {
+        const oldArraySet = new Set(oldArray,);
+        const newArraySet = new Set(newArray);
+        console.log('oldArraySet =', oldArraySet);
+        console.log('newArraySet =', newArraySet);
+        const diff = difference(oldArraySet, newArraySet);
+        console.log('diff =', diff);
+
+        if (diff.size > 0) {
+            const diffOut = Array.from(diff);
+            return diffOut;
+        }
+        else {
+            return [];
+        }
+    }
+
     // FN: RUN SEARCH for Each letter input:
-
     const possibleWords = (keyword) => {
-        const labelObjects = [];
-        const labelsArray = [];
-        const guessOutput = [];
-
-
-        axios.get(`https://api.github.com/search/issues?q=windows+label:${keyword}`)
+        axios.get(`https://api.github.com/search/topics?q=${keyword}&per_page=5`)
             .then((results) => {
-
-                const items = results.data.items
-                // Pulling out label names from items: 
-                items.forEach((x) => labelObjects.push(x.labels));
-                console.log('labelObjects= ', labelObjects);
-                labelObjects.forEach((y) => {
-                    for (let i = 0; i < y.length; i += 1) {
-                        labelsArray.push(y[i].name);
+                const tempTitles = [];
+                const items = results.data.items;
+                console.log(results.data.items);
+                // Pulling out possible words from titles of topics into an array:
+                /* items.forEach((x) => {
+                    if ((x.name.includes(keyword)) && (x.name in possiblesClone !== true)) {
+                        possiblesClone.push(x.name);
+                        setPossibles(possiblesClone);
                     }
+                }); */
+                const blankArray = [];
+                setPossibles(blankArray);
+                items.forEach((x) => {
+                    if (x.name.includes(keyword)) { tempTitles.push(x.name) }
                 });
+                setPossibles(tempTitles);
+                /*              // CODE THAT DIDN't REALLY WORK -   
+                                // Compare this array with the old and return the diff:
+                                console.log('tempTitles =', tempTitles);
+                                const newMatches = findDiff(possibles, tempTitles);
+                                console.log('newMatches =', newMatches);
+                                // Combine difference and return diff with old matches:
+                                const newPossibles = [...possibles, ...newMatches];
+                                setPossibles(newPossibles); */
 
-                const labelSet = new Set(labelsArray);
-                const labelsUnique = Array.from(labelSet);
-
-                labelsUnique.forEach((z) => {
-                    if (z.startsWith(keyword)) {
-                        guessOutput.push(z)
-                    }
-                });
-
-                console.log('guessOuput =', guessOutput);
-
-
+                // RECURRENT PROBLEM:
+                // 'bug-tra' -> correctly displays 5 results
+                // when 'bug-tra' -> 'bug-trac' becomes 10 results... ( repeat 5. )
+                // how about comparing the returned array with the existing state array?
             })
             .catch((error) => {
 
                 console.log(error);
             })
-
 
     }
 
@@ -62,11 +97,15 @@ export default function Form() {
     const handleInputChange = (event) => {
         const input = event.target.value;
         console.log('input = ', input);
-        if (input.length != 0) {
+        if (input.length > 1) {
             possibleWords(input);
         }
-        setKeyword(input);
     }
+
+    const possibleChoices = possibles.map((fullWord, index) => (
+        <li key={index}> {fullWord}
+        </li>
+    ));
 
 
     return (
@@ -78,6 +117,7 @@ export default function Form() {
                 placeholder="enter your search keywords here"
                 onChange={handleInputChange}
             />
+            <ul>{possibleChoices}</ul>
         </div>
     )
 }
