@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-/* import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid'; */
 
 // from component folder
 import { Octokit } from "@octokit/core";
@@ -35,13 +33,6 @@ export default function Form() {
 
     // FN: RUN SEARCH for Each letter input:
     const possibleWords = async (keyword) => {
-        /* axios.get(`https://api.github.com/search/topics?q=${keyword}&per_page=5`, {
-            'headers': {
-                'Accept': 'applciation/vnd.github/json',
-                'Authorization': `${ghToken}`
-            }
-        }
-        ) */
         const octokit = new Octokit({
             auth: ghToken
         })
@@ -58,7 +49,6 @@ export default function Form() {
                 /* checkRate(); */
             })
             .catch((error) => {
-
                 console.log(error);
             })
 
