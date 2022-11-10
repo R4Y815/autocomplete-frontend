@@ -64,7 +64,6 @@ export default function Form() {
     const handleInputChange = (event) => {
         const input = event.target.value;
         setKeyword(input);
-        console.log('input = ', keyword);
         if (keyword.length > 0) {
             possibleWords(input);
         }
@@ -73,7 +72,6 @@ export default function Form() {
     // FN: Set User Selection to be keyword
     const handleChosenWord = (event, value) => {
         const selected = value;
-        console.log('selected = ', selected);
         setKeyword(selected);
     }
 
