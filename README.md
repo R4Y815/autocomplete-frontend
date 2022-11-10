@@ -1,9 +1,3 @@
-# FE: 
-* 1) How to install and run 
-* 2) Personal Auth Tokens required (Github, dotenv)
-* 3) Usage Limitations : 30 requests per minute means 30 keystrokes per minute max
-* 4) Searches Github Topic titles only, but due to Github API able, bring related body content. 
-
 # Autocomplete-Frontend
 
 This is a simple JavaScript frontend that helps autocomplete individual terms to search Github Topics for relevant answers, bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br>
@@ -43,7 +37,7 @@ Final search request carried out by the Node.js [autocomplete-backend](https://g
 
   
 
-## Getting started on Visual Studio Code editor:
+## Instructions to run on Visual Code Studio:
    1. In a new folder, git clone this repo onto the local machine.  <br>
       In the new bash terminal pane (you can use hotKey: Ctrl + Shift + `` ` `` to open a new terminal), type the following code:<br>
         `git clone https://github.com/R4Y815/autocomplete-frontend`
@@ -54,9 +48,9 @@ Final search request carried out by the Node.js [autocomplete-backend](https://g
    4. Return to parent directory:<br>
         `cd ..` 
    5. Repeat steps 1-3 to clone the backend repo and install all the dependencies for the backend locally: <br>
-        `git clone https://github.com/R4Y815/autocomplete-backend`
-        `cd autocomplete-backend`
-        `npm i`
+        `git clone https://github.com/R4Y815/autocomplete-backend` <br>
+        `cd autocomplete-backend` <br>
+        `npm i`<br>
 
 NEED TO ADD ABOUT COPYING AND PASTING THE PERSONAL ACCESS TOKEN INTO THE .ENV FILE
 
@@ -66,7 +60,7 @@ NEED TO ADD ABOUT COPYING AND PASTING THE PERSONAL ACCESS TOKEN INTO THE .ENV FI
    7. Open a second, new bash terminal. (Ctrl + Shift + `` ` ``). <br>
    8. Change the working directory to the directory of autocomplete-frontend:<br>
         `cd autocomplete-frontend`
-   9. In this second bash terminal, run this frontend:<br>:
+   9. In this second bash terminal, run the frontend: <br>
         `npm run start`<br>
         *If a new browser window doesn't open automatically, open one and go to this address: http://localhost:3000/* <br>
          <image src ="https://lh3.googleusercontent.com/xQksKvRKxnM0wurF5TaahN-GwJrnuudnCZ6-t0olh6r9s1X_Z7j3DEQiugioNZpKYEuR55mdZy3mGQ-37IAnMLQCgG2bSZdGDemVNyEIHLNI0sLVbbxAG2AU4zNf1ANAFr3FNB8AFA=w600-h315-p-k" alt="autocomplete-frontend-photo" width="400"/>
