@@ -1,4 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import SearchButton from '@mui/icons-material/Search';
 
 // from component folder
 import { Octokit } from "@octokit/core";
@@ -56,29 +61,63 @@ export default function Form() {
 
     // FN: Controlled Form Inputs
     const handleInputChange = (event) => {
-        setKeyword(event.target.value);
+        const input = event.target.value;
+        setKeyword(input);
         console.log('input = ', keyword);
-        if (keyword.length > 1) {
-            possibleWords(keyword);
+        if (keyword.length > 0) {
+            possibleWords(input);
         }
     }
 
-    const possibleChoices = possibles.map((fullWord, index) => (
-        <li key={index}> {fullWord}
-        </li>
-    ));
+    // FN: Set User Selection to be keyword
+    const handleChosenWord = (event, value) => {
+        const selected = value;
+        console.log('selected = ', selected);
+        setKeyword(selected);
+    }
 
+    //FN: Pass Keyword to backend
+    const passToBackend = () => {
+        console.log('Button Working');
+    }
 
     return (
-        <div>
-            <input
-                ref={input1Ref}
-                type="text"
-                size="50"
-                placeholder="enter your search keywords here"
-                onChange={handleInputChange}
-            />
-            <ul>{possibleChoices}</ul>
+        <div
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
+        >
+            <p style={{ height: '33vh' }}></p>
+            <Stack direction='row' spacing={0} sx={{ width: 300 }}>
+                <Autocomplete
+                    freeSolo={true}
+                    onChange={handleChosenWord}
+                    id="autocomplete-field"
+                    disableClearable
+                    options={possibles.map((possible) => possible)}
+                    renderInput={(params) => (
+                        <TextField
+                            sx={{ width: 400 }}
+                            onChange={handleInputChange}
+                            {...params}
+                            label="Search GitHub Topic for:"
+                            InputProps={{
+                                ...params.InputProps,
+                                type: 'search',
+                            }}
+                        />
+                    )}
+                />
+                <IconButton
+                    onClick={passToBackend}
+                    color="primary"
+                    aria-label="search Github Topics"
+                    size="large">
+                    <SearchButton fontSize='large' />
+                </IconButton>
+            </Stack>
         </div>
     )
 }
