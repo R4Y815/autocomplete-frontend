@@ -2,10 +2,10 @@
 
 This is a simple JavaScript frontend that autocompletes search terms for GitHub **Topics** , bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br>
 
-Upon user selecting/completing the search term, it is sent by a simple Node.js server, [autocomplete-backend](https://github.com/R4Y815/autocomplete-backend), to [Github Search API](https://docs.github.com/en/rest/search).
+Upon user selecting/completing the search term, it is sent by a simple Node.js server, [autocomplete-backend](https://github.com/R4Y815/autocomplete-backend), to [GitHub Search API](https://docs.github.com/en/rest/search).
 
 
-Up 100 search results are returned in the browser console as JavaScript objects in an array (`results.data.items`).
+Up 100 search results are returned in the browser console as JavaScript objects in an array (`'results.data.items'`).
 
 
 
@@ -56,8 +56,8 @@ Up 100 search results are returned in the browser console as JavaScript objects 
 
    5. Create a new .env file in the local repo for autocomplete-frontend: <br>
         `touch .env`<br>
-   6. Copy the code contents of '.env.local' into '.env'. Replace '<PERSONAL AUTH TOKEN FROM GITHUB>' with the Personal Access Token. <br>
-      ***Ensure that the Personal Access Token is in quotes*** (Eg: ***"*** aasdfwertwtsdasdg234asdfase ***"*** )
+   6. Copy the code contents of  file '.env-example' into file '.env'. Replace '<PERSONAL AUTH TOKEN FROM GITHUB>' with your GitHub Personal Access Token. <br>
+      *Ensure that the Personal Access Token is in quotes* (Eg: ***"*** aasdfwertwtsdasdg234asdfase ***"*** )
 
    7. Return to parent directory:<br>
         `cd ..` 
