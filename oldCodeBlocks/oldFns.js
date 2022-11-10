@@ -1,5 +1,4 @@
 // FN: RUN SEARCH for Each letter input:
-
 const possibleWords = (keyword) => {
     const labelObjects = [];
     const labelsArray = [];
@@ -40,3 +39,29 @@ const possibleWords = (keyword) => {
 
 
 }
+
+// FN: Check Rate Limit 
+//     - to check number of authenticated requests left
+const checkRate = () => {
+    const octokit = new Octokit({
+        auth: ghToken
+    })
+    octokit.request('GET /rate_limit', {}).then((response) =>
+        console.log(`Limit: ${response.data.rate.limit} | Remain: ${response.data.rate.remaining}`)
+    );
+}
+
+// FN: CLEAR INPUTS
+const clearInputs = () => {
+    input1Ref.current.value = '';
+}
+
+// FN: CLEAR INPUTS ON AUTOCOMPLETE
+setTimeout(() => {
+    const close = document.getElementsByClassName(
+        "MuiAutocomplete-clearIndicator"
+    )[0];
+    close.addEventListener("click", () => {
+        setKeyword('');
+    });
+}, 0);
