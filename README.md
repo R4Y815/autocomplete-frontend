@@ -1,19 +1,19 @@
-# Autocomplete-Frontend
+# Autocomplete-Frontend Readme
 
-This is a simple JavaScript frontend that helps autocomplete individual terms to search Github Topics for relevant answers, bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br>
+This is a simple JavaScript frontend that autocompletes search terms for GitHub **Topics** , bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br>
 
-Final search request carried out by the Node.js [autocomplete-backend](https://github.com/R4Y815/autocomplete-backend) to [Github Search API](https://docs.github.com/en/rest/search).
+Upon user selecting/completing the search term, it is sent by [autocomplete-backend] a simple Node.js server(https://github.com/R4Y815/autocomplete-backend) to [Github Search API](https://docs.github.com/en/rest/search) and the results are returned in the browser console as JavaScript objects. 
 
 
 
-## Important Notes: READ THIS FIRST <br>
-   1.  **Autocomplete feature** <br>
+## **Important Notes:** <br>
+   -  **Autocomplete feature** <br>
        For every character entered after the first character, 
        an AJAX request is made to GitHub Search API to fetch 
        possible topics based on the current string in the search box. 
        Up to 5 suggestions are returned per character entry.
       
-   2. **Rate Limit**<br>
+   - **Rate Limit**<br>
       For unauthenticated requests the rate limit is 
       10 requests per minute. So the autocomplete
       would work only for search terms up to 10 letters
@@ -25,45 +25,63 @@ Final search request carried out by the Node.js [autocomplete-backend](https://g
 
       Source: [Github Search API](https://docs.github.com/en/rest/search#rate-limit) <br>
 
-   3. **Personal Authentication Tokens**<br>
+   - **Personal Authentication Tokens**<br>
       To make Basic Authentication requests to GitHub Search API, you can create personal tokens. See [here.](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) <br>
 
 
       **Scope**<br>
-      Results returned from the proxied search are from repositories (`repo`scope).<br>
-      Take note to enable only the minimum required scopes when creating your Github personal access token.
-      See [this](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api#about-tokens) and [this](https://docs.github.com/en/rest/search#access-errors-or-missing-search-results).<br>
+      Tokens created must have the required scopes to work. See [here](https://docs.github.com/en/rest/search#access-errors-or-missing-search-results). <br>
+      Results returned from the proxied search are from repositories (**repo** scope).<br>
+      For this frontend, the minmum scope access requirement is **repo**. <br>
+      *Take note to enable only the minimum required scopes when creating your Github personal access token.* <br>
+      See [here](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api#about-tokens).
         
 
   
 
-## Instructions to run on Visual Code Studio:
+## **Instructions to run on Visual Code Studio:**
    1. In a new folder, git clone this repo onto the local machine.  <br>
       In the new bash terminal pane (you can use hotKey: Ctrl + Shift + `` ` `` to open a new terminal), type the following code:<br>
         `git clone https://github.com/R4Y815/autocomplete-frontend`
+
    2. Change the working directory to the newly cloned repo directory holding the frontend. <br>
         `cd autocomplete-frontend`
    3. Install all dependencies for the frontend locally:<br>
         `npm i`
-   4. Return to parent directory:<br>
+   4. Create Personal Access Token from GitHub. See [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) for instructions <br> 
+   Paste the token into somewhere safe on your local machine for the time being.<br>
+
+   5. Create a new .env file in the local repo for autocomplete-frontend: <br>
+        `touch .env`<br>
+   6. Copy the code contents of '.env.local' into '.env'. Replace '<PERSONAL AUTH TOKEN FROM GITHUB>' with the Personal Access Token. <br>
+      ***Ensure that the Personal Access Token is in quotes*** (Eg: ***"*** aasdfwertwtsdasdg234asdfase ***"*** )
+
+   7. Return to parent directory:<br>
         `cd ..` 
-   5. Repeat steps 1-3 to clone the backend repo and install all the dependencies for the backend locally: <br>
+   8. Repeat steps 1-3 to clone the backend repo and install all the dependencies for the backend locally: <br>
         `git clone https://github.com/R4Y815/autocomplete-backend` <br>
         `cd autocomplete-backend` <br>
         `npm i`<br>
 
-NEED TO ADD ABOUT COPYING AND PASTING THE PERSONAL ACCESS TOKEN INTO THE .ENV FILE
-
-
-   6. In the current bash terminal, run the autocomplete-backend Node.js server first in development mode: <br>
+   9. In the current bash terminal, run the autocomplete-backend Node.js server first in development mode: <br>
         `npm run start`
-   7. Open a second, new bash terminal. (Ctrl + Shift + `` ` ``). <br>
-   8. Change the working directory to the directory of autocomplete-frontend:<br>
+   10. Open a second, new bash terminal. (Ctrl + Shift + `` ` ``). <br>
+   11. Change the working directory to the directory of autocomplete-frontend:<br>
         `cd autocomplete-frontend`
-   9. In this second bash terminal, run the frontend: <br>
+   12. In this second bash terminal, run the frontend: <br>
         `npm run start`<br>
         *If a new browser window doesn't open automatically, open one and go to this address: http://localhost:3000/* <br>
-         <image src ="https://lh3.googleusercontent.com/xQksKvRKxnM0wurF5TaahN-GwJrnuudnCZ6-t0olh6r9s1X_Z7j3DEQiugioNZpKYEuR55mdZy3mGQ-37IAnMLQCgG2bSZdGDemVNyEIHLNI0sLVbbxAG2AU4zNf1ANAFr3FNB8AFA=w600-h315-p-k" alt="autocomplete-frontend-photo" width="400"/>
+        *You should see a page like this:* <br>
+
+
+         <image src ="https://lh3.googleusercontent.com/xQksKvRKxnM0wurF5TaahN-GwJrnuudnCZ6-t0olh6r9s1X_Z7j3DEQiugioNZpKYEuR55mdZy3mGQ-37IAnMLQCgG2bSZdGDemVNyEIHLNI0sLVbbxAG2AU4zNf1ANAFr3FNB8AFA=w600-h315-p-k" alt="autocomplete-frontend-photo" width="400"/> <br>
+
+
+
+
+   
+     
+          Readme ver. 1: 11/10/2022
 
 
 
