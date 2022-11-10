@@ -1,6 +1,27 @@
+# FE: 
+* 1) How to install and run 
+* 2) Personal Auth Tokens required (Github, dotenv)
+* 3) Usage Limitations : 30 requests per minute means 30 keystrokes per minute max
+* 4) Searches Github Topic titles only, but due to Github API able, bring related body content. 
+
+# Autocomplete-Frontend
+
+This is a simple JavaScript frontend that helps autocomplete individual terms to search Github Topics for relevant answers, bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br>
+
+Final search request carried out by the Node.js [autocomplete-backend](https://github.com/R4Y815/autocomplete-backend) to [Github Search API](https://docs.github.com/en/rest/search).
+
+## Getting started:
+   1. In a new folder, git clone this repo onto the local machine. <br>
+        `git clone https://github.com/R4Y815/autocomplete-backend `
+   2.  Install all dependencies:<br>
+        `npm i`
+  
+
+
+
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with 
 
 ## Available Scripts
 
