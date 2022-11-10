@@ -5,7 +5,7 @@ This is a simple JavaScript frontend that autocompletes search terms for GitHub 
 Upon user selecting/completing the search term, it is sent by a simple Node.js server, [autocomplete-backend](https://github.com/R4Y815/autocomplete-backend), to [Github Search API](https://docs.github.com/en/rest/search).
 
 
-The first 100 search results are returned in the browser console as JavaScript objects in an array (`results.data.items`).
+Up 100 search results are returned in the browser console as JavaScript objects in an array (`results.data.items`).
 
 
 
