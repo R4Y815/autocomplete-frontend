@@ -1,6 +1,6 @@
 # Autocomplete-Frontend Readme
 
-This is a simple JavaScript frontend that autocompletes search terms for GitHub **Topics** , bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br>
+This is a simple JavaScript (ReactJs) frontend that autocompletes search terms for GitHub **Topics** , bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br>
 
 Upon user selecting/completing the search term, it is sent by a simple Node.js server, [autocomplete-backend](https://github.com/R4Y815/autocomplete-backend), to [GitHub Search API](https://docs.github.com/en/rest/search).
 
