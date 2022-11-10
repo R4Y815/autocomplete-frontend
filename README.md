@@ -2,7 +2,10 @@
 
 This is a simple JavaScript frontend that autocompletes search terms for GitHub **Topics** , bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br>
 
-Upon user selecting/completing the search term, it is sent by [autocomplete-backend] a simple Node.js server(https://github.com/R4Y815/autocomplete-backend) to [Github Search API](https://docs.github.com/en/rest/search) and the results are returned in the browser console as JavaScript objects. 
+Upon user selecting/completing the search term, it is sent by a simple Node.js server, [autocomplete-backend](https://github.com/R4Y815/autocomplete-backend), to [Github Search API](https://docs.github.com/en/rest/search).
+
+
+The first 100 search results are returned in the browser console as JavaScript objects in an array (`results.data.items`).
 
 
 
@@ -42,7 +45,7 @@ Upon user selecting/completing the search term, it is sent by [autocomplete-back
 ## **Instructions to run on Visual Code Studio:**
    1. In a new folder, git clone this repo onto the local machine.  <br>
       In the new bash terminal pane (you can use hotKey: Ctrl + Shift + `` ` `` to open a new terminal), type the following code:<br>
-        `git clone https://github.com/R4Y815/autocomplete-frontend`
+        `git clone https://github.com/R4Y815/autocomplete-frontend.git`
 
    2. Change the working directory to the newly cloned repo directory holding the frontend. <br>
         `cd autocomplete-frontend`
