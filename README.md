@@ -10,11 +10,31 @@ This is a simple JavaScript frontend that helps autocomplete individual terms to
 
 Final search request carried out by the Node.js [autocomplete-backend](https://github.com/R4Y815/autocomplete-backend) to [Github Search API](https://docs.github.com/en/rest/search).
 
-## Getting started:
-   1. In a new folder, git clone this repo onto the local machine. <br>
-        `git clone https://github.com/R4Y815/autocomplete-backend `
-   2.  Install all dependencies:<br>
+## Getting started on Visual Studio Code editor:
+   1. In a new folder, git clone this repo onto the local machine.  <br>
+      In the new bash terminal pane (you can use hotKey: Ctrl + Shift + ` to open a new terminal), type the following code:<br>
+        `git clone https://github.com/R4Y815/autocomplete-frontend`
+   2. Change the working directory to the newly cloned repo directory holding the frontend. <br>
+        `cd autocomplete-frontend`
+   3. Install all dependencies for the frontend locally:<br>
         `npm i`
+   4. Return to parent directory:<br>
+        `cd ..` 
+   5. Repeat steps 1-3 to clone the backend repo and install all the dependencies for the backend locally: <br>
+        `git clone https://github.com/R4Y815/autocomplete-backend`
+        `cd autocomplete-backend`
+        `npm i`
+   6. In the current bash terminal, run the autocomplete-backend Node.js server first in development mode: <br>
+        `npm run start`
+   7. Open a second, new bash terminal. (Ctrl + Shift + `). <br>
+   8. Change the working directory to the directory of autocomplete-frontend:<br>
+        `cd autocomplete-frontend`
+   9. In this second bash terminal, run this frontend:<br>:
+        `npm run start`
+        *If a new browser window doesn't open automatically, open one and go to this address: http://localhost:3000/*
+        <image src ="https://photos.app.goo.gl/N7KK5jDCmUtWxUP66" alt="autocomplete-frontend-photo" width="50vw"/>
+        
+
   
 
 
