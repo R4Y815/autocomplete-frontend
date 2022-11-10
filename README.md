@@ -32,7 +32,7 @@ Final search request carried out by the Node.js [autocomplete-backend](https://g
    9. In this second bash terminal, run this frontend:<br>:
         `npm run start`
         *If a new browser window doesn't open automatically, open one and go to this address: http://localhost:3000/*
-        <image src ="https://photos.app.goo.gl/N7KK5jDCmUtWxUP66" alt="autocomplete-frontend-photo" width="50vw"/>
+        <image src ="https://lh3.googleusercontent.com/xQksKvRKxnM0wurF5TaahN-GwJrnuudnCZ6-t0olh6r9s1X_Z7j3DEQiugioNZpKYEuR55mdZy3mGQ-37IAnMLQCgG2bSZdGDemVNyEIHLNI0sLVbbxAG2AU4zNf1ANAFr3FNB8AFA=w600-h315-p-k" alt="autocomplete-frontend-photo" width="50vw"/>
         
 
   
