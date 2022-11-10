@@ -56,8 +56,8 @@ Up 100 search results are returned in the browser console as JavaScript objects 
 
    5. Create a new .env file in the local repo for autocomplete-frontend: <br>
         `touch .env`<br>
-   6. Copy the code contents of  file '.env-example' into file '.env'. Replace '<PERSONAL AUTH TOKEN FROM GITHUB>' with your GitHub Personal Access Token. <br>
-      *Ensure that the Personal Access Token is in quotes* (Eg: ***"*** aasdfwertwtsdasdg234asdfase ***"*** )
+   6. Copy the code contents of  file '.env-example' into file '.env'. Replace ``<PERSONAL AUTH TOKEN FROM GITHUB>`` with your GitHub Personal Access Token. <br>
+      *Ensure that the Personal Access Token remains enclosed in quotes* (Eg: ***"***``aasdfwertwtsdasdg234asdfase``***"*** )
 
    7. Return to parent directory:<br>
         `cd ..` 
