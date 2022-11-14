@@ -51,7 +51,6 @@ export default function Form() {
                     if (x.name.includes(keyword)) { tempTitles.push(x.name) }
                 });
                 setPossibles(tempTitles);
-                /* checkRate(); */
             })
             .catch((error) => {
                 console.log(error);
