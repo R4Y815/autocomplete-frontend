@@ -5,23 +5,26 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import SearchButton from '@mui/icons-material/Search';
-
-// Modules: GitHub 
-import { Octokit } from "@octokit/core";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 
 // Modules: for AJAX out to BE
 import axios from 'axios';
 
 
-
 // REQUIRED FOR CONNECTION TO BACKEND
-// ensure that axios always sends the cookie to the backend server
+// ensure that axios always sends the cookie to the backend server and NOT use CORS
 axios.defaults.withCredentials = false;
 
 const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
 
 export default function Form() {
     // STATES
+    const [open, setOpen] = useState(false);
     const [keyword, setKeyword] = useState('');
     const [possibles, setPossibles] = useState([]);
 
@@ -34,7 +37,18 @@ export default function Form() {
         }
     }
 
-    // FN: Send Character inputs to Backend
+    // FN: ALERT DIALOG OPEN
+    const openAlert = () => {
+        setOpen(true);
+    }
+    // FN: ALERT DIALOG CLOSE
+    const closeAlert = () => {
+        setOpen(false);
+    }
+
+
+
+    // FN: Send Character inputs to Backend (Callback)
     /*     const sendInputsToBackEnd = async (userChar) => {
             console.log('input at sendInputsToBackend =', userChar);
             const inputPkg = { input: userChar };
@@ -61,6 +75,7 @@ export default function Form() {
                 const temp = Array.from(result.data.possibles);
                 setPossibles(temp)
             }).catch((error) => {
+                openAlert()
                 console.log(error);
             })
         }
@@ -87,6 +102,8 @@ export default function Form() {
 
     // Call Clear Inputs function so it Listens in Autocomplete Field
     keywordClearOnSelect();
+
+
 
     return (
         <div
@@ -124,6 +141,23 @@ export default function Form() {
                     <SearchButton fontSize='large' />
                 </IconButton>
             </Stack>
+            <Dialog
+                open={open}
+                onClose={closeAlert}
+                aria-labelledby="alert-dialog-title"
+                aria-descrivedby="alert-dialog-description">
+                <DialogTitle>
+                    ERROR: STATUS
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        ERROR Description
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeAlert}>CLOSE</Button>
+                </DialogActions>
+            </Dialog>
         </div >
     )
 }
