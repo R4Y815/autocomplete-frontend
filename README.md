@@ -80,10 +80,11 @@ Up 100 search results are returned in the browser console as JavaScript objects 
          <image src ="https://lh3.googleusercontent.com/xQksKvRKxnM0wurF5TaahN-GwJrnuudnCZ6-t0olh6r9s1X_Z7j3DEQiugioNZpKYEuR55mdZy3mGQ-37IAnMLQCgG2bSZdGDemVNyEIHLNI0sLVbbxAG2AU4zNf1ANAFr3FNB8AFA=w600-h315-p-k" alt="autocomplete-frontend-photo" width="400"/> <br>
 
 
+## **To Do:**
+   1. Move most of the code involving the auth token to the backend server so that the auth token is not exposed front-end. 
+   2. find a way to deal with the rate limit in code or inform the user about it
+   3. If error happens, have to inform the user. 
 
-
-   
-     
           Readme ver. 1: 11/10/2022
 
 
