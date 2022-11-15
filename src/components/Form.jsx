@@ -12,8 +12,7 @@ import { Octokit } from "@octokit/core";
 // Modules: for AJAX out to BE
 import axios from 'axios';
 
-// GLOBAL Auth from Octokit for GitHub API
-const ghToken = process.env.REACT_APP_GH_TOKEN;
+
 
 // REQUIRED FOR CONNECTION TO BACKEND
 // ensure that axios always sends the cookie to the backend server
@@ -35,36 +34,35 @@ export default function Form() {
         }
     }
 
-
-    // FN: RUN SEARCH for Each letter input:
-    const possibleWords = async (keyword) => {
-        const octokit = new Octokit({
-            auth: ghToken
-        })
-        await octokit.request(`GET /search/topics?q=${keyword}&per_page=5`, {})
-            .then((results) => {
-                const tempTitles = [];
-                const items = results.data.items;
-                const blankArray = [];
-                setPossibles(blankArray);
-                items.forEach((x) => {
-                    if (x.name.includes(keyword)) { tempTitles.push(x.name) }
-                });
-                setPossibles(tempTitles);
-            })
-            .catch((error) => {
+    // FN: Send Character inputs to Backend
+    /*     const sendInputsToBackEnd = async (userChar) => {
+            console.log('input at sendInputsToBackend =', userChar);
+            const inputPkg = { input: userChar };
+            await axios.post(`${REACT_APP_BACKEND_URL}/autocomplete`, inputPkg).then((result) => {
+                console.log('received Autocomplete search = ', result.data.possibles);
+                const temp = Array.from(result.data.possibles);
+                setPossibles(temp)
+            }).catch((error) => {
                 console.log(error);
             })
+        } */
 
-    }
-
-
-    // FN: Controlled Form Inputs
-    const handleInputChange = (event) => {
+    // FN: Controlled Form Inputs and send inputs to backend for GitHub API search
+    //     issue with something 1 character less per POST if using CallBack
+    const handleInputChange = async (event) => {
         const input = event.target.value;
         setKeyword(input);
-        if (keyword.length > 0) {
-            possibleWords(input);
+        console.log('input after setting = ', input)
+        if (keyword.length > 1) {
+            console.log('input before sending', input)
+            const inputPkg = { input: input };
+            await axios.post(`${REACT_APP_BACKEND_URL}/autocomplete`, inputPkg).then((result) => {
+                console.log('received Autocomplete search = ', result.data.possibles);
+                const temp = Array.from(result.data.possibles);
+                setPossibles(temp)
+            }).catch((error) => {
+                console.log(error);
+            })
         }
     }
 
