@@ -24,9 +24,22 @@ const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://local
 
 export default function Form() {
     // STATES
+    // Alert Dialog States
     const [open, setOpen] = useState(false);
+    const [errCode, setErrCode] = useState('');
+    const [errText, setErrText] = useState('');
+
+    // searchbox States
     const [keyword, setKeyword] = useState('');
     const [possibles, setPossibles] = useState([]);
+
+    // Alert Box Variables: 
+    const CODE_503 = '503 - Service Unavailable';
+    const TEXT_503 = 'Backend Server is down.';
+    const CODE_403 = '403 - Bad Request/ Limit Exceeded';
+    const TEXT_403 = 'You have exceeded all Github Search API rate limit on number of search requests per minute. Unauthenticated - 10 requests per minute. Authenticated - 30 requests per minute. Please try again later.';
+    const CODE_DEFAULT = 'ERROR!';
+    const TEXT_DEFAULT = 'Autocomplete service is not working';
 
     // FN: CLEAR INPUTS IN AUTOCOMPLETE 
     //     - when clearIcon is clicked
@@ -36,7 +49,6 @@ export default function Form() {
             close.addEventListener("click", () => { setKeyword(''); });
         }
     }
-
     // FN: ALERT DIALOG OPEN
     const openAlert = () => {
         setOpen(true);
@@ -45,8 +57,6 @@ export default function Form() {
     const closeAlert = () => {
         setOpen(false);
     }
-
-
 
     // FN: Send Character inputs to Backend (Callback)
     /*     const sendInputsToBackEnd = async (userChar) => {
@@ -75,8 +85,22 @@ export default function Form() {
                 const temp = Array.from(result.data.possibles);
                 setPossibles(temp)
             }).catch((error) => {
-                openAlert()
                 console.log(error);
+                const code = error.code;
+                switch (code) {
+                    case 'ERR_NETWORK':
+                        setErrCode(CODE_503);
+                        setErrText(TEXT_503);
+                        break;
+                    case 'ERR_BAD_REQUEST':
+                        setErrCode(CODE_403);
+                        setErrText(TEXT_403);
+                        break;
+                    default:
+                        setErrCode(CODE_DEFAULT);
+                        setErrText(TEXT_DEFAULT);
+                }
+                openAlert()
             })
         }
     }
@@ -147,11 +171,11 @@ export default function Form() {
                 aria-labelledby="alert-dialog-title"
                 aria-descrivedby="alert-dialog-description">
                 <DialogTitle>
-                    ERROR: STATUS
+                    ERROR: {errCode}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        ERROR Description
+                        {errText}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
