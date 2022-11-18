@@ -82,7 +82,7 @@ Up 100 search results are returned in the browser console as JavaScript objects 
 
 ## **To Do:**
    1. Move most of the code involving the auth token to the backend server so that the auth token is not exposed front-end. [DONE]
-   2. find a way to deal with the rate limit in code or inform the user about it. 
+   2. find a way to deal with the rate limit in code or inform the user about it. [DONE - stopped making API calls on Backspace and if root string did not vary significantly.]
    3. If error happens, have to inform the user. [DONE]
    4. Fix High vulnerabilities
 
