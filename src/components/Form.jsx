@@ -58,6 +58,7 @@ export default function Form3() {
     // FN: ALERT DIALOG CLOSE
     const closeAlert = () => {
         setOpen(false);
+        window.location.reload();
     }
 
     // FN: CHECK IF KEYWORD is INSIDE THE RETURNED 100 WORDS
@@ -153,14 +154,15 @@ export default function Form3() {
         console.log('Path = ', pathRoute);
     }
     // FN: Set User Selection to be keyword
-    const handleChosenWord = (event, value) => {
-        const selected = value;
+    const handleChosenWord = async (event) => {
+        console.log('textContent =', event.target.textContent);
+        const selected = event.target.textContent;
         setKeyword(selected);
-        handleInputChange(event);
     }
 
     //FN: Pass Keyword to backend
     const passToBackend = () => {
+        console.log('keyword =', keyword);
         if (keyword !== null) {
             console.log('Search term sent to backend...');
             const confirmedTerm = { toSearch: keyword };
