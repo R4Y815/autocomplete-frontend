@@ -11,9 +11,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Badge from '@mui/material/Badge';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch'
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography'
 
 // Modules: for AJAX out to BE
 import axios from 'axios';
+import { CardContent } from '@mui/material';
 
 // REQUIRED FOR CONNECTION TO BACKEND
 // ensure that axios always sends the cookie to the backend server and NOT use CORS
@@ -33,6 +39,10 @@ export default function Form3() {
     const [keyword, setKeyword] = useState('');
     const [possibles, setPossibles] = useState([]);
     const [displayChoices, setDisplayChoices] = useState([]);
+
+    // search Result Output States
+    const [resultsSummary, setResultsSummary] = useState({});
+    const [resultsDisplay, setResultsDisplay] = useState([]);
 
     // Alert Box Variables: 
     const CODE_503 = '503 - Service Unavailable';
@@ -166,8 +176,15 @@ export default function Form3() {
         if (keyword !== null) {
             console.log('Search term sent to backend...');
             const confirmedTerm = { toSearch: keyword };
-            axios.post(`${REACT_APP_BACKEND_URL}/searchGitHubTopic`, confirmedTerm).then((result) => {
-                console.log('Results of Backend Call to Github Search API =', result);
+            axios.post(`${REACT_APP_BACKEND_URL}/searchGitHubTopic`, confirmedTerm).then((results) => {
+                console.log('Results of Backend Call to Github Search API =', results);
+                const summary = {
+                    total_count: results.data.total_count,
+                };
+                setResultsSummary(summary);
+                const items = results.data.items;
+                setResultsDisplay(items);
+                console.log(items);
             }).catch((error) => {
                 console.log(error);
             })
@@ -180,42 +197,48 @@ export default function Form3() {
 
 
     return (
-        <div
+        <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={1}
+            direction="column"
+            alignItems="center"
+            justify="center"
             style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}
-        >
-            <p style={{ height: '33vh' }}></p>
-            <Stack direction='row' spacing={0} sx={{ width: 300 }}>
-                <Autocomplete
-                    freeSolo={true}
-                    /* has issue with clearing input at some point */
-                    onChange={handleChosenWord}
-                    id="autocomplete-field"
-                    options={displayChoices.map((choice) => choice)}
-                    renderInput={(params) => (
-                        <TextField
-                            sx={{ width: 400 }}
-                            onKeyDown={handleInputChange}
-                            {...params}
-                            label="Search GitHub Topic for:"
-                            InputProps={{
-                                ...params.InputProps,
-                                type: 'search',
-                            }}
-                        />
-                    )}
-                />
-                <IconButton
-                    onClick={passToBackend}
-                    color={(keyword !== "") ? "primary" : "error"}
-                    aria-label="search Github Topics"
-                    size="large">
-                    <SearchButton fontSize='large' />
-                </IconButton>
-            </Stack>
+                minHeight: '65',
+                width: '300'
+            }}>
+            <Grid>
+                <p style={{ height: '10vh' }}></p>
+                <Stack direction='row' spacing={0} sx={{ width: 300 }}>
+                    <Autocomplete
+                        freeSolo={true}
+                        /* has issue with clearing input at some point */
+                        onChange={handleChosenWord}
+                        id="autocomplete-field"
+                        options={displayChoices.map((choice) => choice)}
+                        renderInput={(params) => (
+                            <TextField
+                                sx={{ width: 400 }}
+                                onKeyDown={handleInputChange}
+                                {...params}
+                                label="Search GitHub Topic for:"
+                                InputProps={{
+                                    ...params.InputProps,
+                                    type: 'search',
+                                }}
+                            />
+                        )}
+                    />
+                    <IconButton
+                        onClick={passToBackend}
+                        color={(keyword !== "") ? "primary" : "error"}
+                        aria-label="search Github Topics"
+                        size="large">
+                        <SearchButton fontSize='large' />
+                    </IconButton>
+                </Stack>
+            </Grid>
             <Dialog
                 open={open}
                 onClose={closeAlert}
@@ -233,6 +256,42 @@ export default function Form3() {
                     <Button onClick={closeAlert}>CLOSE</Button>
                 </DialogActions>
             </Dialog>
-        </div >
+            <p style={{ height: '50' }}></p>
+            {resultsDisplay.length > 0 &&
+                <Badge
+                    badgeContent={resultsSummary.total_count}
+                    color="primary"
+                    max={100} >
+                    <ManageSearchIcon
+                        color="action"
+                        fontSize="large"
+                    />
+                </Badge>
+            }
+            {resultsDisplay.map((item, index) =>
+                <Grid>
+                    <Card key={index} sx={{ width: 350, margin: 0.5 }} >
+                        <CardContent>
+                            <Typography variant="h6" component="div">
+                                {index + 1}) "{item.name}"
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                {item.description}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                <span style={{ fontWeight: 'bold' }}>created by: </span> {item.created_by}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                <span style={{ fontWeight: 'bold' }}>created at: </span> {item.created_at}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                <span style={{ fontWeight: 'bold' }}>updated: </span> {item.updated_at}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+            )}
+        </Grid>
+
     )
 }
