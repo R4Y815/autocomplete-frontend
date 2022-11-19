@@ -84,9 +84,12 @@ Up 100 search results are returned in the browser console as JavaScript objects 
    1. Move most of the code involving the auth token to the backend server so that the auth token is not exposed front-end. [DONE]
    2. find a way to deal with the rate limit in code or inform the user about it. [DONE - stopped making API calls on Backspace and if root string did not vary significantly.]
    3. If error happens, have to inform the user. [DONE]
-   4. Fix High vulnerabilities
+   4. Fix High vulnerabilities.
+   5. Centralise search box assembly with result cards!!
 
-          Readme ver. 1: 11/10/2022
+          Readme ver. 2: 11/19/2022
 
-
+## **Updates**
+   1. Results of completed search keyword query now completely rendered. 
+   2. Had to use auth token for final search query to get all other details of topic discussed.
 
